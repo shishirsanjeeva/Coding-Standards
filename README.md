@@ -1,5 +1,5 @@
-# Coding-Standards
-Filesystem structure of a Python project
+## Coding-Standards
+# Filesystem structure of a Python project
 
 **Do:**
 * name the directory something related to your project. For example, if your project is named "Twisted", name the top-level directory for its source files Twisted. When you do releases, you should include 		a version number suffix: Twisted-2.5.
@@ -11,7 +11,8 @@ put your unit tests in a sub-package of your package (note - this means that the
 add Twisted/README and Twisted/setup.py to explain and install your software, respectively, if you're feeling nice.
 
 **Don't:**
-*put your source in a directory called src or lib. This makes it hard to run without installing.
-*put your tests outside of your Python package. This makes it hard to run the tests against an installed version.
-*create a package that only has a __init__.py and then put all your code into __init__.py. Just make a module instead of a package, it's simpler.
-*try to come up with magical hacks to make Python able to import your module or package without having the user add the directory containing it to their import path (either via PYTHONPATH or some other mechanism). You will not correctly handle all cases and users will get angry at you when your software doesn't work in their environment.
+*
+put your source in a directory called src or lib. This makes it hard to run without installing.
+* put your tests outside of your Python package. This makes it hard to run the tests against an installed version.
+* create a package that only has a __init__.py and then put all your code into __init__.py. Just make a module instead of a package, it's simpler.
+* try to come up with magical hacks to make Python able to import your module or package without having the user add the directory containing it to their import path (either via PYTHONPATH or some other mechanism). You will not correctly handle all cases and users will get angry at you when your software doesn't work in their environment.
