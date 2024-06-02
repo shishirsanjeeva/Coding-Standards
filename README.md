@@ -1,7 +1,7 @@
 ## Coding-Standards
 # Filesystem structure of a Python project
 ```
-Project_folder
+Project_folder-version_num
   - package1
     -- test
       --- test_sample.py
