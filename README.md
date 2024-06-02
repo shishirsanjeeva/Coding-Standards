@@ -41,15 +41,18 @@ ROOT_DIR =dirname(abspath(__file__)
 
 * #### `.gitignore`
   - A `.gitignore` file is a text file describing some files that should not be included in version control. There are many reasons for not wanting to source control certain files. For instance, the file could contain sensitive data such as passwords. You might also want to exclude large data files such as images.
+    
 * #### `README`
   - A readme should at least contain a simple description of your project and instructions for how to install and use the package.
+    
 * #### `setup.py`
   - A `setup.py` is a python file that contains information about the package you are installing.
-* ```import setuptools
+  ```import setuptools
   setuptools.setup(name='my_project', packages=['my_project'])
   ```
-* Here we are saying that the name of our package should be `« my_project »`. This name will be used in the package metadata stored by pip. The « packages » parameter takes the name of package directory to install. Previously, I said only the package part of our project structure would be installed, this `« packages »` parameter is why.
-* If your module package is at the root of your repository, this should obviously be at the root as well.
+  - Here we are saying that the name of our package should be `« my_project »`. This name will be used in the package metadata stored by pip. The « packages » parameter takes the name of package directory to install. Previously, I said only the package part of our project structure would be installed, this `« packages »` parameter is why.
+  - If your module package is at the root of your repository, this should obviously be at the root as well.
+
 * #### `LICENSE`
   - This is arguably the most important part of your repository, aside from the source code itself. The full license text and copyright claims should exist in this file.
 
@@ -63,9 +66,10 @@ ROOT_DIR =dirname(abspath(__file__)
       install_requires = f.read().splitlines()
     setuptools.setup(name='my_project', packages=['my_project'], install_requires=install_requires)
     ```
-    * As you can see, we have added the packages contained in the `requirements.txt` to our package setup. Therefore, when pip installs our package, it will search for that version of numpy. If it does not find it, it will download it for us.
-    * A pip requirements file should be placed at the root of the repository. It should specify the dependencies required to contribute to the project: testing, building, and generating documentation. If your project has no development dependencies, or if you prefer setting up a development environment via setup.py, this file may be unnecessary.
-* #### * `docs`
+    - As you can see, we have added the packages contained in the `requirements.txt` to our package setup. Therefore, when pip installs our package, it will search for that version of numpy. If it does not find it, it will download it for us.
+    - A pip requirements file should be placed at the root of the repository. It should specify the dependencies required to contribute to the project: testing, building, and generating documentation. If your project has no development dependencies, or if you prefer setting up a development environment via setup.py, this file may be unnecessary.
+
+* #### `docs`
   - Package reference documentation.
       
 #### Do:
