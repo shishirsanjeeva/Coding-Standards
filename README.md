@@ -17,12 +17,18 @@ Project_folder-version_num
   - .gitignore
   - setup.py
   - requirements.txt
-  - docs `
+  - docs
 ```
 
 * #### The `project` vs the `package`
   - The python `project` is everything in the base directory. All files related to your python application will be in the project directory.
   - The `package`, on the other hand, is as subdirectory inside the project with the same name as the project itself. This package contains the source code of your application. The reason for having this package directory is to separate source code from other files. When we pip install our project, we will tell pip to only include the files contained in the package directory.
+  - name the directory something related to your project. For example, if your project is named "Twisted", name the top-level directory for its source files `Twisted`. When you do releases, you should include a version number suffix: `Twisted-2.5`.
+  - create a directory `Twisted/bin` and put your executables there, if you have any. Don't give them a `.py` extension, even if they are Python source files. Don't put any code in them except an import of and call to a main function defined somewhere else in your projects. (Slight wrinkle: since on Windows, the interpreter is selected by the file extension, your Windows users actually do want the `.py` extension. So, when you package for Windows, you may want to add it. Unfortunately there's no easy distutils trick that I know of to automate this process. Considering that on POSIX the .py extension is a only a wart, whereas on Windows the lack is an actual bug, if your userbase includes Windows users, you may want to opt to just have the .py extension everywhere.)
+  - If your project is expressable as a single Python source file, then put it into the directory and name it something related to your project. For example, `Twisted/twisted.py`. If you need multiple source files, create a package instead (`Twisted/twisted/`, with an empty `Twisted/twisted/__init__.py`) and place your source files in it. For example, Twisted/twisted/internet.py.
+put your unit tests in a sub-package of your package (note - this means that the single Python source file option above was a trick - you always need at least one other file for your unit tests). For example, `Twisted/twisted/test/`. Of course, make it a package with `Twisted/twisted/test/__init__.py`. Place tests in files like `Twisted/twisted/test/test_internet.py`.
+add `Twisted/README` and `Twisted/setup.py` to explain and install your software, respectively, if you're feeling nice.
+
 * #### Why `__init__.py`?
   - The package needs to contain at least an `__init__.py` file. This tells python that this directory is indeed a package.
   - When python loads this package, it automatically runs the `__init__.py`. Therefore, it can be useful to include initialisation steps for the package. In all my projects, I add at least two things to this `__init__.py`:
@@ -43,6 +49,9 @@ ROOT_DIR =dirname(abspath(__file__)
   setuptools.setup(name='my_project', packages=['my_project'])
   ```
 * Here we are saying that the name of our package should be `« my_project »`. This name will be used in the package metadata stored by pip. The « packages » parameter takes the name of package directory to install. Previously, I said only the package part of our project structure would be installed, this `« packages »` parameter is why.
+* If your module package is at the root of your repository, this should obviously be at the root as well.
+* #### `LICENSE`
+  - This is arguably the most important part of your repository, aside from the source code itself. The full license text and copyright claims should exist in this file.
 
 * #### Tracking requirements with `requirements.txt`
   - A good way of tracking dependencies is through a `requirements.txt`. This requirements.txt contains all the packages that your project needs and that are not part of the standard library. We will use this requirements.txt to make pip automatically download and install requirements for us.
@@ -55,7 +64,9 @@ ROOT_DIR =dirname(abspath(__file__)
     setuptools.setup(name='my_project', packages=['my_project'], install_requires=install_requires)
     ```
     * As you can see, we have added the packages contained in the `requirements.txt` to our package setup. Therefore, when pip installs our package, it will search for that version of numpy. If it does not find it, it will download it for us.
-   
+    * A pip requirements file should be placed at the root of the repository. It should specify the dependencies required to contribute to the project: testing, building, and generating documentation. If your project has no development dependencies, or if you prefer setting up a development environment via setup.py, this file may be unnecessary.
+* #### * `docs`
+  - Package reference documentation.
       
 #### Do:
 * name the directory something related to your project. For example, if your project is named "Twisted", name the top-level directory for its source files `Twisted`. When you do releases, you should include a version number suffix: `Twisted-2.5`.
